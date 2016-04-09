@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="dubbo-provider-demo"/>
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry id="zk1" address="192.168.10.109:2181" protocol="zookeeper"/>
+
+	<!-- 用dubbo协议在20887端口暴露服务 -->
+    <dubbo:protocol id="mydubbo" name="dubbo" port="20887"/>
+
+	<!-- 具体的实现bean -->
+    <bean name="speakInterface" class="com.qijiabin.rpc.impl.SpeakInterfaceImpl"/>
+    
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.qijiabin.rpc.SpeakInterface" ref="speakInterface"/>
+
+</beans>
